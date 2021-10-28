@@ -1,11 +1,11 @@
 import Constants.Constants;
+import listeners.TestListener;
 import io.restassured.RestAssured;
-
+import org.testng.annotations.Listeners;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 /**
  * Implementation of the Base Class for the generic methods used for test cases
@@ -13,8 +13,8 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
  * @author Abdur.Rehman
  */
 
+@Listeners(TestListener.class)
 public class ValidationBaseClass {
-
 
     /**
      * To retrieve user's id from the Response
@@ -58,14 +58,12 @@ public class ValidationBaseClass {
         return RestAssured.get(Constants.BASE_URL + path).getStatusCode();
     }
 
-
     /**
      * To retrieve the username of user
      *
      * @param name, name of user
      */
     boolean getUsername(String name) {
-
         boolean isPresent = false;
         List<HashMap<String, Object>> response = getResponse(Constants.USERS_ENDPOINT + "?username=" + name);
         if (response.size() != 0 && (response.get(0).get("username").equals(name))) {
@@ -108,7 +106,4 @@ public class ValidationBaseClass {
         }
         return emails;
     }
-
-
-
 }

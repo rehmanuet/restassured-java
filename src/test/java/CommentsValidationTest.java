@@ -1,11 +1,10 @@
 import Constants.Constants;
+import pojo.CommentsPOJO;
 import io.restassured.RestAssured;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import java.util.regex.Pattern;
 
@@ -23,9 +22,11 @@ public class CommentsValidationTest extends ValidationBaseClass {
     @Test
     public void tc011_checkCommentsForEachPost() {
         ArrayList<Integer> posts = getPosts(getUser(Constants.VALID_USERNAME));
-        for (int post : posts) {
-            List<HashMap<String, Object>> comments = getComments(post);
-            Assert.assertNotNull(comments);
+        for (Integer post : posts) {
+            CommentsPOJO[] comments = getComments(post);
+            for (CommentsPOJO comment:comments){
+                Assert.assertEquals(post, comment.getPostId());
+            }
         }
     }
 
@@ -43,9 +44,9 @@ public class CommentsValidationTest extends ValidationBaseClass {
     public void tc013_validateBodyIsPresentForEachComment() {
         ArrayList<Integer> posts = getPosts(getUser(Constants.VALID_USERNAME));
         for (int post : posts) {
-            List<HashMap<String, Object>> comments = getComments(post);
-            for (HashMap<String, Object> comment : comments) {
-                Assert.assertNotNull(comment.get("body"));
+            CommentsPOJO[] comments = getComments(post);
+            for (CommentsPOJO comment : comments) {
+               Assert.assertNotNull(comment.getBody());
             }
         }
     }

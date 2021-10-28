@@ -1,7 +1,11 @@
 import Constants.Constants;
+import pojo.CommentsPOJO;
+import pojo.PostsPOJO;
+import pojo.UsersPOJO;
 import listeners.TestListener;
 import io.restassured.RestAssured;
 import org.testng.annotations.Listeners;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,11 +27,10 @@ public class ValidationBaseClass {
      */
     Integer getUser(String name) {
         Integer userId = null;
-        List<HashMap<String, Object>> users = getResponse(Constants.USERS_ENDPOINT);
-
-        for (HashMap<String, Object> user : users) {
-            if (user.get("username").equals(name)) {
-                userId = (Integer) user.get("id");
+        UsersPOJO[] users = RestAssured.get(Constants.BASE_URL + Constants.USERS_ENDPOINT).as(UsersPOJO[].class);
+        for (UsersPOJO user : users) {
+            if (user.getUsername().equals(name)) {
+                userId = user.getId();
             }
         }
         return userId;
@@ -39,11 +42,11 @@ public class ValidationBaseClass {
      * @param userId, I'd of user
      */
     ArrayList<Integer> getPosts(Integer userId) {
-        List<HashMap<String, Object>> userPosts = getResponse(Constants.POSTS_ENDPOINT);
+        PostsPOJO[] userPosts = RestAssured.get(Constants.BASE_URL + Constants.POSTS_ENDPOINT).as(PostsPOJO[].class);
         ArrayList<Integer> allPost = new ArrayList<>();
-        for (HashMap<String, Object> post : userPosts) {
-            if (post.get("userId").equals(userId)) {
-                allPost.add((Integer) post.get("id"));
+        for (PostsPOJO post : userPosts) {
+            if (post.getUserId().equals(userId)) {
+                allPost.add(post.getId());
             }
         }
         return allPost;
@@ -65,9 +68,12 @@ public class ValidationBaseClass {
      */
     boolean getUsername(String name) {
         boolean isPresent = false;
-        List<HashMap<String, Object>> response = getResponse(Constants.USERS_ENDPOINT + "?username=" + name);
-        if (response.size() != 0 && (response.get(0).get("username").equals(name))) {
-            isPresent = true;
+        UsersPOJO[] users = RestAssured.get(Constants.BASE_URL + Constants.USERS_ENDPOINT + "?username=" + name).as(UsersPOJO[].class);
+        for (UsersPOJO user : users) {
+            if (user.getUsername().equals(name)) {
+                isPresent = true;
+                break;
+            }
         }
         return isPresent;
     }
@@ -86,8 +92,8 @@ public class ValidationBaseClass {
      *
      * @param postId, path of endpoint
      */
-    List<HashMap<String, Object>> getComments(int postId) {
-        return getResponse(Constants.POSTS_ENDPOINT + "/" + postId + Constants.COMMENTS_ENDPOINT);
+    CommentsPOJO[] getComments(int postId) {
+        return RestAssured.get(Constants.BASE_URL + Constants.POSTS_ENDPOINT + "/" + postId + Constants.COMMENTS_ENDPOINT).as(CommentsPOJO[].class);
     }
 
     /**
@@ -99,9 +105,9 @@ public class ValidationBaseClass {
         ArrayList<String> emails = new ArrayList<>();
         ArrayList<Integer> posts = getPosts(getUser(username));
         for (int post : posts) {
-            List<HashMap<String, Object>> comments = getComments(post);
-            for (HashMap<String, Object> comment : comments) {
-                emails.add((String) comment.get("email"));
+            CommentsPOJO[] comments = getComments(post);
+            for (CommentsPOJO comment : comments) {
+                emails.add(comment.getEmail());
             }
         }
         return emails;

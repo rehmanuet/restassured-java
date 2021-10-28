@@ -14,9 +14,9 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 public class CommentsValidationTest extends ValidationBaseClass {
 
     @Test
-    public void tc010_checkStatusCodeForUsers() {
-        int response_code = getStatusCode(Constants.USERS_ENDPOINT);
-        System.out.printf("Endpoint: %s, Status Code: %s\n", Constants.USERS_ENDPOINT, response_code);
+    public void tc010_checkStatusCodeForComments() {
+        int response_code = getStatusCode(Constants.COMMENTS_ENDPOINT);
+        System.out.printf("Endpoint: %s, Status Code: %s\n", Constants.COMMENTS_ENDPOINT, response_code);
         Assert.assertEquals(response_code, 200);
     }
 

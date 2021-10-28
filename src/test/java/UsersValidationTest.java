@@ -6,11 +6,6 @@ import org.testng.annotations.Test;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-/**
- * Implementation of the Base Class for the generic methods used for test cases
- *
- * @author Abdur.Rehman
- */
 
 public class UsersValidationTest extends ValidationBaseClass {
 

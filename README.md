@@ -56,7 +56,8 @@ Validate if the emails in the comment section for specific user is valid
     }
 ```
 
-Results
+Result
+---------------
 <img src="https://github.com/rehmanuet/DataEssential/blob/master/junk/Screenshot%202021-10-29%20at%2012.53.06%20PM.png?raw=true" width="600" height="400" />
 
 _contact:`rehmanuet[at]yahoo[dot]com`_ *or* _[LinkedIn](https://www.linkedin.com/in/rehmanuet/)_

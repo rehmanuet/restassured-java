@@ -1,4 +1,5 @@
 # RestAssured | TestNG | CircleCI | ExtentReport
+<sup>Live Build Status:</sup><br />[![CircleCI](https://circleci.com/gh/rehmanuet/restassured-java/tree/main.svg?style=shield)](https://circleci.com/gh/rehmanuet/restassured-java/tree/main)
 
 Introduction:
 ---------------

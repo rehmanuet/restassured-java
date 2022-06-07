@@ -1,6 +1,7 @@
 # RestAssured | TestNG | CircleCI | ExtentReport
 <sup>Live Build Status:</sup><br />[![CircleCI](https://circleci.com/gh/rehmanuet/restassured-java/tree/main.svg?style=shield)](https://circleci.com/gh/rehmanuet/restassured-java/tree/main)
 
+
 Introduction:
 ---------------
 This Test Automation Framework is created using Java + RestAssured Library + TestNG which can be used to test APIs. Covered all the mandatory & additional scenarios. I tried to make it S.O.L.I.D compliant and used OOP (Inheritance).
